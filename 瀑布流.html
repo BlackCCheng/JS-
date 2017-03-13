@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>标题</title>
+	<meta name="keywords" content="">
+	<meta name="description" content="">
+	<link rel="stylesheet" href="reset.css">
+	<style>
+		#box{
+			width: 1000px;
+			margin: 0 auto;
+			overflow: hidden;
+		}
+		#box p{
+			width:198px;
+			margin:0 25px;
+			float: left;
+			
+			/* overflow: hidden; */
+		}
+		#box p img{
+			width: 200px;
+			margin: 10px 0;
+			border: 1px solid green;
+			display: block;
+			/* float: left; */
+		}
+	</style>
+</head>
+<body>
+	<div id="box">
+		<p>
+			<!-- <img src="images/1.png" alt=""> -->
+		</p>
+		<p>
+			<!-- <img src="images/2.png" alt=""> -->
+		</p>
+		<p>
+			<!-- <img src="images/3.png" alt=""> -->
+		</p>
+		<p>
+			<!-- <img src="images/4.png" alt=""> -->
+		</p>
+	</div>
+</body>
+<script type="text/javascript">
+	var box=document.getElementById('box');
+	var ps=document.getElementsByTagName('p');
+	function  append() {
+			
+		var newImg=document.createElement('img');
+		var x=Math.ceil(Math.random()*35);//1-35
+		newImg.src="images/"+x+".png";
+		
+
+		var p1=ps[0].offsetHeight;
+		var p2=ps[1].offsetHeight;
+		var p3=ps[2].offsetHeight;
+		var p4=ps[3].offsetHeight;
+		var minH=Math.min(p1,p2,p3,p4);//找出每一列最小值
+		console.log(minH);
+		for (var i = 0; i < ps.length; i++) {  //遍历每一个P标签找出每一列最小值
+			if (ps[i].offsetHeight==minH) {
+				ps[i].appendChild(newImg);
+				break;//跳出循环
+			};
+		};
+	}
+	
+	for (var i = 0; i < 20; i++) {
+		append();
+	};
+	window.onscroll=function  () {
+		var docH=document.documentElement.offsetHeight;
+		var winH=document.documentElement.clientHeight;
+		var scrT=document.body.scrollTop||document.documentElement.scrollTop;
+
+		//document.body.scrollTop   非IE获取滚动条向上滚动距离
+		//document.documentElement.scrollTop   IE获取滚动条向上滚动距离
+		if (docH-winH-scrT<=500) {
+			for (var i = 0; i < 20; i++) {
+				append();
+			};
+		};
+	}
+</script>
+</html>
